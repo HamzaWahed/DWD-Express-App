@@ -1,0 +1,14 @@
+services:
+  express-app:
+    image: hzd454/express-app
+    container_name: express-app
+    ports:
+      - 8080:8080
+
+  watchtower:
+    image: containrrr/watchtower
+    command: ["--interval", "60", "express-app"]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: watchtower
+    restart: unless-stopped
